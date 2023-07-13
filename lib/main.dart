@@ -26,9 +26,9 @@ class MyApp extends StatelessWidget {
         ],
         child: ScreenUtilInit(
           builder: (context, snap) =>  MaterialApp(
-            theme: ThemeData(appBarTheme: AppBarTheme(elevation: 0,backgroundColor: Colors.white)),
+            theme: ThemeData(appBarTheme: const AppBarTheme(elevation: 0,backgroundColor: Colors.white)),
             debugShowCheckedModeBanner: false,
-            home: Wellcome(),
+            home:const Wellcome(),
             /* routes: {"myhome":(context)=> Myhome()}, */
           ),
         ));
@@ -61,13 +61,13 @@ class _MyhomeState extends State<Myhome> {
             onPressed: () {
               BlocProvider.of<CounterBloc>(context).add(Tang());
             },
-            child: Icon(Icons.add),
+            child:const Icon(Icons.add),
           ),
           FloatingActionButton(
             onPressed: () {
               BlocProvider.of<CounterBloc>(context).add(Giam());
             },
-            child: Icon(Icons.remove),
+            child:const Icon(Icons.remove),
           ),
         ],
       ),

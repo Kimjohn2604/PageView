@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'bloc/wellcom_bloc.dart';
-import 'main.dart';
 
 class Wellcome extends StatefulWidget {
   const Wellcome({super.key});
@@ -39,33 +38,33 @@ class _WellcomeState extends State<Wellcome> {
                         textButton: "Click",
                         title: "Connect with Everyone",
                         subTitle:
-                            "Alway keep in touch with tutor & friend to get cl as 12312 123142323dasd qw qweqw ",
-                        imagePath: "imagePath",
-                        appar: "Trang"),
+                            "Alway keep in touch with tutor & friend to get receive many gifts and special discount codes ",
+                        imagePath: "page_1.jpg",
+                        ),
                     _page(2, context,
                         textButton: "Click",
                         title: "Connect with Everyone",
                         subTitle:
                             "Alway keep in touch with tutor & friend to get connected",
-                        imagePath: "imagePath",
-                        appar: "Trang"),
+                        imagePath: "page_2.jpg",
+                       ),
                     _page(3, context,
                         textButton: "Get Started",
                         title: "Connect with Everyone",
                         subTitle:
                             "Alway keep in touch with tutor & friend to get connected",
-                        imagePath: "imagePath",
-                        appar: "Trang")
+                        imagePath: "page_3.jpg",
+                        )
                   ],
                 ),
                 Positioned(
-                    bottom: 100.h,
+                    bottom: 50.h,
                     child: DotsIndicator(
                       dotsCount: 3,
                       position: state.pageNumber,
                       decorator: DotsDecorator(
                           color: Colors.grey,
-                          activeColor: Colors.amber,
+                          activeColor: Colors.blue,
                           size: Size.square(10),
                           activeSize: Size(20, 10),
                           activeShape: RoundedRectangleBorder(
@@ -84,17 +83,18 @@ Widget _page(int index, BuildContext context,
     {required String textButton,
     required String title,
     required String subTitle,
-    required String imagePath,
-    required String appar}) {
+    required String imagePath,}) {
   return Column(
     children: [
-      SizedBox(
-        height: 345.w,
-        width: 345.w,
-        child: Text(appar),
+      Container(
+      margin: EdgeInsets.only(top: 50),
+        height: 320.w,
+        width: double.infinity,
+        child: Image.asset("assets/icons/$imagePath"),
       ),
-      Container(decoration: BoxDecoration(color: Colors.amberAccent),
-        padding: EdgeInsets.symmetric(horizontal: 20),
+      Container(
+        margin: EdgeInsets.only(top: 30),
+        padding:const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             Text(
@@ -115,7 +115,7 @@ Widget _page(int index, BuildContext context,
           if (index < 3) {
             print(index);
             pageController.animateToPage(index /* page */,
-                duration: Duration(seconds: 1), curve: Curves.decelerate);
+                duration:const Duration(seconds: 1), curve: Curves.decelerate);
           } else {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => SignIn()));
@@ -124,13 +124,13 @@ Widget _page(int index, BuildContext context,
           }
         },
         child: Container(
-          margin: EdgeInsets.only(top: 100, left: 25, right: 25),
-          width: 325.w,
+          margin:const EdgeInsets.only(top: 100, left: 25, right: 25),
+          width: double.infinity,
           height: 50.h,
           decoration: BoxDecoration(
-              color: Colors.amber,
+              color: Colors.blue,
               borderRadius: BorderRadius.circular(15.w),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                     color: Colors.black,
                     spreadRadius: 1,
