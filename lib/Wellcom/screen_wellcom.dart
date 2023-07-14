@@ -1,4 +1,4 @@
-import 'package:app/login/sign_in.dart';
+
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +22,7 @@ class _WellcomeState extends State<Wellcome> {
       child: Scaffold(body: BlocBuilder<WellcomBloc, WellcomState>(
         builder: (context, state) {
           return Container(
-            margin: EdgeInsets.only(top: 35),
+            margin:const EdgeInsets.only(top: 35),
             width: 375.w,
             child: Stack(
               alignment: Alignment.topCenter,
@@ -31,7 +31,7 @@ class _WellcomeState extends State<Wellcome> {
                   controller: pageController,
                   onPageChanged: (index) {
                     state.pageNumber = index;
-                    BlocProvider.of<WellcomBloc>(context).add(WellcomEvent());
+                    BlocProvider.of<WellcomBloc>(context).add(WellcomEvent()); //set state
                   },
                   children: [
                     _page(1, context,
@@ -65,8 +65,8 @@ class _WellcomeState extends State<Wellcome> {
                       decorator: DotsDecorator(
                           color: Colors.grey,
                           activeColor: Colors.blue,
-                          size: Size.square(10),
-                          activeSize: Size(20, 10),
+                          size:const Size.square(10),
+                          activeSize:const Size(20, 10),
                           activeShape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8))),
                     )),
@@ -87,13 +87,13 @@ Widget _page(int index, BuildContext context,
   return Column(
     children: [
       Container(
-      margin: EdgeInsets.only(top: 50),
+      margin:const EdgeInsets.only(top: 50),
         height: 320.w,
         width: double.infinity,
         child: Image.asset("assets/icons/$imagePath"),
       ),
       Container(
-        margin: EdgeInsets.only(top: 30),
+        margin: const EdgeInsets.only(top: 30),
         padding:const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
@@ -115,12 +115,12 @@ Widget _page(int index, BuildContext context,
           if (index < 3) {
             print(index);
             pageController.animateToPage(index /* page */,
-                duration:const Duration(seconds: 1), curve: Curves.decelerate);
+                duration:const Duration(seconds: 1), curve: Curves.decelerate); 
           } else {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => SignIn()));
+            /* Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) =>const SignIn())); */
+            Navigator.of(context).pushNamed("signin");
               /* Navigator.of(context).pushNamedAndRemoveUntil("myhome", (route) => false) */
-                ;
           }
         },
         child: Container(
