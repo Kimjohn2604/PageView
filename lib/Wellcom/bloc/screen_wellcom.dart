@@ -1,10 +1,13 @@
 
+import 'package:app/service/constant.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'bloc/wellcom_bloc.dart';
+import '../../service/global.dart';
+import 'wellcom_bloc.dart';
+
 
 class Wellcome extends StatefulWidget {
   const Wellcome({super.key});
@@ -119,8 +122,9 @@ Widget _page(int index, BuildContext context,
           } else {
             /* Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) =>const SignIn())); */
-            /* Navigator.of(context).pushNamed("signin"); */
-              Navigator.of(context).pushNamedAndRemoveUntil("/signin", (route) => false);
+            Global.storageService.setBool(AppConstant.STORAGE_DEVICE_OPEN_FIRST_TIME, true);
+            Navigator.of(context).pushNamedAndRemoveUntil("/signin",(route) => false );
+              /* Navigator.of(context).pushNamedAndRemoveUntil("myhome", (route) => false) */
           }
         },
         child: Container(

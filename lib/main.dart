@@ -1,17 +1,13 @@
-import 'package:app/bloc/wellcom_bloc.dart';
-import 'package:app/login/bloc/sign_in_bloc.dart';
-import 'package:app/register/bloc/register_bloc.dart';
-import 'package:app/wellcom.dart';
-import 'package:firebase_core/firebase_core.dart';
+
+import 'package:app/routes/pages.dart';
+import 'package:app/service/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'bloc2/bloc/counter_bloc.dart';
-import 'sign_in.dart';
+import 'counter/bloc/counter_bloc.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Global.init();
   runApp(const MyApp());
 }
 
@@ -21,7 +17,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [
+      providers:[... AppPage.allBlocProviders(context),],
+        /* providers: [
           BlocProvider(
             lazy: false,
             create: (context) => WellcomBloc(),
@@ -36,7 +33,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => RegisterBloc(),
           ),
-        ],
+        ], */
         child: ScreenUtilInit(
           builder: (context, snap) => MaterialApp(
             theme: ThemeData(
@@ -46,12 +43,13 @@ class MyApp extends StatelessWidget {
                     backgroundColor: Colors.white,
                     )),
             debugShowCheckedModeBanner: false,
-            home: const Wellcome(),
-            routes: {
+            /* home: const Wellcome(), */
+            onGenerateRoute: AppPage.GenerateRouteSettings,
+            /* routes: {
               "myhome": (context) => Myhome(),
-              /* "register": (context) => Register(), */
+              "register": (context) => Register(),
               "signin": (context) => SignIn()
-            },
+            }, */
           ),
         ));
   }
@@ -80,12 +78,14 @@ class _MyhomeState extends State<Myhome> {
       floatingActionButton: Row(
         children: [
           FloatingActionButton(
+            heroTag: "btn1",
             onPressed: () {
               BlocProvider.of<CounterBloc>(context).add(Tang());
             },
             child: const Icon(Icons.add),
           ),
           FloatingActionButton(
+            heroTag: "btn2",
             onPressed: () {
               BlocProvider.of<CounterBloc>(context).add(Giam());
             },

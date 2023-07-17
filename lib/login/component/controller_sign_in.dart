@@ -4,6 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../service/constant.dart';
+import '../../service/global.dart';
+
 class SigninController {
   final BuildContext context;
   SigninController({required this.context});
@@ -33,14 +36,14 @@ class SigninController {
             toastLogin(msg: "You need to verify your email account");
             return;
           }
-          var user = credential.user;
+          /* var user = credential.user;
           if (user != null) {
             toastLogin(msg: "User exist");
             return;
           } else {
             toastLogin(msg: "No user");
             return;
-          }
+          } */
         } on FirebaseAuthException catch (e) {
           if (e.code == 'user-not-found') {
             toastLogin(msg: "No user found for that email");
@@ -55,5 +58,7 @@ class SigninController {
         }
       }
     } catch (e) {}
+    Global.storageService.setString(AppConstant.STORAGE_USER_TOKEY_KEY, "12345678");
+     Navigator.of(context).pushNamedAndRemoveUntil("/counter", (route) => false);
   }
 }

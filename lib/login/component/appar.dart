@@ -1,10 +1,10 @@
 import 'package:app/login/bloc/sign_in_bloc.dart';
-import 'package:app/register.dart';
+import 'package:app/register/screen_register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../bloc/sign_in_controller.dart';
+import 'controller_sign_in.dart';
 
 AppBar buildAppBar({required String title}) {
   return AppBar(
@@ -208,7 +208,8 @@ Widget register(BuildContext context) {
         ),
         TextButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Register()));
+            /* Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Register())); */
+            Navigator.of(context).pushNamed("/register");
           },
           child: const Text(
             "Register",
@@ -232,6 +233,7 @@ Widget Login(BuildContext context,{required String title}) {
       child: ElevatedButton(
           onPressed: () {
             SigninController(context: context).handleSignIn("email");
+            /* Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Myhome())); */
           },
           child: Text(title)));
 }

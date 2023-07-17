@@ -1,8 +1,9 @@
 import 'package:app/register/bloc/register_bloc.dart';
+import 'package:app/register/controller_register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'login/component/appar.dart';
+import '../login/component/appar.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -34,24 +35,28 @@ class _RegisterState extends State<Register> {
                   SignUpContent(context, (value) {
                     context.read<RegisterBloc>().add(UserEvent(value));
                   },
+                      hideContent: false,
                       title: "Username",
                       hintText: "Enter your Username",
                       path: "user.png"),
                   SignUpContent(context, (value) {
                     context.read<RegisterBloc>().add(EmailEvent(value));
                   },
+                      hideContent: false,
                       title: "Email",
                       hintText: "Enter your Email Address",
                       path: "user.png"),
                   SignUpContent(context, (value) {
                     context.read<RegisterBloc>().add(PasswordEvent(value));
                   },
+                      hideContent: true,
                       title: "Password",
                       hintText: "Enter your Password",
                       path: "password.png"),
                   SignUpContent(context, (value) {
                     context.read<RegisterBloc>().add(RePasswordEvent(value));
                   },
+                      hideContent: true,
                       title: "Confirm Password",
                       hintText: "Enter your Confirm Password",
                       path: "password.png"),
@@ -65,7 +70,7 @@ class _RegisterState extends State<Register> {
                   const SizedBox(
                     height: 40,
                   ),
-                  Login(context, title: "Sign up"),
+                  LoginRegister(context, title: "Sign up")
                 ],
               ),
             )),
@@ -73,8 +78,11 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Container SignUpContent(BuildContext context,  Function? func,
-      {required String title, required String path, required String hintText}) {
+  Container SignUpContent(BuildContext context, Function? func,
+      {required String title,
+      required String path,
+      required String hintText,
+      required bool hideContent}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -102,10 +110,11 @@ class _RegisterState extends State<Register> {
                     height: 50,
                     width: 250,
                     child: TextField(
-                      onChanged: (value)=>func!(value),
+                      onChanged: (value) => func!(value),
                       /* (value) {
                         context.read<SignInBloc>().add(EmailEvent(value));
                       }, */
+                      obscureText: hideContent,
                       keyboardType: TextInputType.multiline,
                       decoration: InputDecoration(
                         hintText: hintText,
@@ -127,5 +136,18 @@ class _RegisterState extends State<Register> {
         ],
       ),
     );
+  }
+
+  Widget LoginRegister(BuildContext context, {required String title}) {
+    return Container(
+        margin: const EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        height: 40,
+        width: double.infinity,
+        child: ElevatedButton(
+            onPressed: () {
+              RegisterController(context: context).handleRegister();
+            },
+            child: Text(title)));
   }
 }
