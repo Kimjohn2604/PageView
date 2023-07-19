@@ -4,7 +4,6 @@ import 'package:app/service/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'counter/bloc/counter_bloc.dart';
 
 Future<void> main() async {
   await Global.init();
@@ -44,7 +43,7 @@ class MyApp extends StatelessWidget {
                     )),
             debugShowCheckedModeBanner: false,
             /* home: const Wellcome(), */
-            onGenerateRoute: AppPage.GenerateRouteSettings,
+            onGenerateRoute: AppPage.generateRouteSettings,
             /* routes: {
               "myhome": (context) => Myhome(),
               "register": (context) => Register(),
@@ -52,47 +51,5 @@ class MyApp extends StatelessWidget {
             }, */
           ),
         ));
-  }
-}
-
-class Myhome extends StatefulWidget {
-  const Myhome({super.key});
-
-  @override
-  State<Myhome> createState() => _MyhomeState();
-}
-
-class _MyhomeState extends State<Myhome> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: BlocBuilder<CounterBloc, CounterState>(
-          builder: (context, state) {
-            return Text(
-                "${BlocProvider.of<CounterBloc>(context).state.counter}");
-            /* Text("${state.counter}"); */
-          },
-        ),
-      ),
-      floatingActionButton: Row(
-        children: [
-          FloatingActionButton(
-            heroTag: "btn1",
-            onPressed: () {
-              BlocProvider.of<CounterBloc>(context).add(Tang());
-            },
-            child: const Icon(Icons.add),
-          ),
-          FloatingActionButton(
-            heroTag: "btn2",
-            onPressed: () {
-              BlocProvider.of<CounterBloc>(context).add(Giam());
-            },
-            child: const Icon(Icons.remove),
-          ),
-        ],
-      ),
-    );
   }
 }

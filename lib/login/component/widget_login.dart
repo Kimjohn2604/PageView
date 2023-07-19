@@ -1,9 +1,10 @@
 import 'package:app/login/bloc/sign_in_bloc.dart';
-import 'package:app/register/screen_register.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../routes/names.dart';
 import 'controller_sign_in.dart';
 
 AppBar buildAppBar({required String title}) {
@@ -16,7 +17,7 @@ AppBar buildAppBar({required String title}) {
       ),
     ),
     centerTitle: true,
-    title:  Text(
+    title: Text(
       title,
       style: const TextStyle(color: Colors.black),
     ),
@@ -193,38 +194,39 @@ class _TextFieldPassState extends State<TextFieldPass> {
   }
 }
 
-Widget register(BuildContext context) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 20),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const Text(
-          "Forgot Password",
-          style: TextStyle(
-            fontSize: 13,
-            color: Colors.black,
-          ),
-        ),
-        TextButton(
-          onPressed: () {
-            /* Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Register())); */
-            Navigator.of(context).pushNamed("/register");
-          },
-          child: const Text(
-            "Register",
-            style: TextStyle(
-              fontSize: 13,
-              color: Colors.blue,
-            ),
-          ),
-        ),
-      ],
+Widget forgotPassword(BuildContext context) {
+  return TextButton(
+    onPressed: () {
+      print("object");
+    },
+    child: const Text(
+      "Forgot Password",
+      style: TextStyle(
+        decoration: TextDecoration.underline,
+        fontSize: 13,
+        color: Colors.black,
+      ),
     ),
   );
 }
 
-Widget Login(BuildContext context,{required String title}) {
+Widget register(BuildContext context) {
+  return TextButton(
+    onPressed: () {
+      /* Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => Register())); */
+      Navigator.of(context).pushNamed(Approutes.REGISTER);
+    },
+    child: const Text(
+      "Register",
+      style: TextStyle(
+        fontSize: 13,
+        color: Colors.blue,
+      ),
+    ),
+  );
+}
+
+Widget Login(BuildContext context, {required String title}) {
   return Container(
       margin: const EdgeInsets.symmetric(vertical: 20),
       padding: const EdgeInsets.symmetric(horizontal: 20),

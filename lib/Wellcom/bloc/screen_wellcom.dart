@@ -1,4 +1,5 @@
 
+import 'package:app/routes/names.dart';
 import 'package:app/service/constant.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
@@ -116,14 +117,13 @@ Widget _page(int index, BuildContext context,
       GestureDetector(
         onTap: () {
           if (index < 3) {
-            print(index);
             pageController.animateToPage(index /* page */,
                 duration:const Duration(seconds: 1), curve: Curves.decelerate); 
           } else {
             /* Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) =>const SignIn())); */
             Global.storageService.setBool(AppConstant.STORAGE_DEVICE_OPEN_FIRST_TIME, true);
-            Navigator.of(context).pushNamedAndRemoveUntil("/signin",(route) => false );
+            Navigator.of(context).pushNamedAndRemoveUntil(Approutes.SIGN_IN,(route) => false );
               /* Navigator.of(context).pushNamedAndRemoveUntil("myhome", (route) => false) */
           }
         },

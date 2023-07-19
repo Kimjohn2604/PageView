@@ -1,5 +1,6 @@
 import 'package:app/login/component/toast.dart';
 import 'package:app/login/bloc/sign_in_bloc.dart';
+import 'package:app/routes/names.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,6 +60,6 @@ class SigninController {
       }
     } catch (e) {}
     Global.storageService.setString(AppConstant.STORAGE_USER_TOKEY_KEY, "12345678");
-     Navigator.of(context).pushNamedAndRemoveUntil("/counter", (route) => false);
+     Navigator.of(context).pushNamedAndRemoveUntil(Approutes.HOMESCREEN, (route) => false);
   }
 }

@@ -3,7 +3,7 @@ import 'package:app/register/controller_register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../login/component/appar.dart';
+import '../login/component/widget_login.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});

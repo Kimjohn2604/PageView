@@ -9,5 +9,4 @@ class Global {
     await Firebase.initializeApp();
     storageService = await StorageService().init();
   }
-  
 }

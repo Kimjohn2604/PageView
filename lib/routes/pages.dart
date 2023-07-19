@@ -1,15 +1,15 @@
+import 'package:app/App/bloc/app_bloc.dart';
 import 'package:app/Wellcom/bloc/screen_wellcom.dart';
 import 'package:app/Wellcom/bloc/wellcom_bloc.dart';
-import 'package:app/counter/bloc/counter_bloc.dart';
 import 'package:app/login/bloc/sign_in_bloc.dart';
 import 'package:app/login/screen_sign_in.dart';
-import 'package:app/main.dart';
 import 'package:app/register/bloc/register_bloc.dart';
 import 'package:app/register/screen_register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../App/bloc/test.dart';
 import '../service/global.dart';
 import 'names.dart';
 
@@ -29,9 +29,9 @@ class AppPage {
           page: const Register(),
           bloc: BlocProvider(create: (_) => RegisterBloc())),
       PageEntity(
-          route: Approutes.COUNTER,
-          page: const Myhome(),
-          bloc: BlocProvider(create: (_) => CounterBloc()))
+          route: Approutes.HOMESCREEN,
+          page:  HomeScreen(),
+          bloc: BlocProvider(create: (_) => AppBloc()))
     ];
   }
 
@@ -41,9 +41,9 @@ class AppPage {
       blocprovider.add(bloc.bloc);
     }
     return blocprovider;
-  }
+  }//trả về các Blocprovider
 
-  static MaterialPageRoute GenerateRouteSettings(RouteSettings settings) {
+  static MaterialPageRoute generateRouteSettings(RouteSettings settings) {
     if (settings.name != null) {
       var result = routes().where((element) => element.route == settings.name);
       if (result.isNotEmpty) {
@@ -52,7 +52,7 @@ class AppPage {
           bool isLoggedin = Global.storageService.getIsLogged();
           if(isLoggedin){
             return MaterialPageRoute(
-              builder: (_) => const Myhome(), settings: settings);
+              builder: (_) =>  HomeScreen(), settings: settings);
           }
           return MaterialPageRoute(
               builder: (_) => const SignIn(), settings: settings);
@@ -65,6 +65,7 @@ class AppPage {
         builder: (_) => const SignIn(), settings: settings);
   }
 }
+// set trả về cái nào trước
 
 class PageEntity {
   String route;
