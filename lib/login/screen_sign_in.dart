@@ -14,7 +14,7 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Colors.white,
+        /* color: Colors.white, */
       ),
       child: SafeArea(
         child: Scaffold(

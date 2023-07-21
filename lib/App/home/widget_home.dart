@@ -1,3 +1,6 @@
+
+import 'package:app/App/component/dimension.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 
 import '../component/colors.dart';
@@ -12,7 +15,7 @@ class FoodPageBody extends StatefulWidget {
 
 class _FoodPageBodyState extends State<FoodPageBody> {
   var _currPageValue = 0.0;
-  var _height = 220;
+  var _height = Dimension.pageViewContainer;
   final double _scaleFactor = 0.8;
   final PageController pageController =
       PageController(viewportFraction: 0.85); //zoom
@@ -34,18 +37,74 @@ class _FoodPageBodyState extends State<FoodPageBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.blueAccent,
-      height: 320,
-      child: PageView.builder(
-          controller: pageController,
-          itemCount: 5,
-          itemBuilder: (context, snap) {
-            return _buildPageItem(snap);
-          }),
+    return Column(
+      children: [
+        Container(
+          height: Dimension.pageView, //(320)
+          child: PageView.builder(
+              controller: pageController,
+              itemCount: 5,
+              itemBuilder: (context, snap) {
+                return _buildPageItem(snap);
+              }),
+        ),
+        DotsIndicator(
+          dotsCount: 5,
+          position: _currPageValue.toInt(),
+          decorator: DotsDecorator(
+            size: const Size.square(9.0),
+            activeSize: const Size(18.0, 9.0),
+            activeShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0)),
+          ),
+        ),
+        SizedBox(
+          height: Dimension.height30,
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            children: [
+              Text(
+                "Popular",
+                style: AppStyle.headlineStyle2,
+              ),
+              SizedBox(
+                width: Dimension.width10,
+              ),
+              Text(
+                "Food Pairing",
+                style: AppStyle.headlineStyle4,
+              )
+            ],
+          ),
+        ),
+        ColumnofPopular(
+            path: "banhxeo.jpg",
+            textIcon1: "Nomarl",
+            textIcon2: "10km",
+            textIcon3: "32min",
+            title: "Bánh xèo",
+            subTitle: "With characteriseries "),
+        ColumnofPopular(
+            path: "banhit.jpg",
+            textIcon1: "Nomarl",
+            textIcon2: "10km",
+            textIcon3: "32min",
+            title: "Bánh xèo",
+            subTitle: "With characteriseries "),
+        ColumnofPopular(
+            path: "banhbeo.jpg",
+            textIcon1: "Nomarl",
+            textIcon2: "10km",
+            textIcon3: "32min",
+            title: "Bánh xèo",
+            subTitle: "With characteriseries "),
+      ],
     );
   }
 
+///////
   Widget _buildPageItem(int index) {
     Matrix4 matrix = Matrix4.identity();
     if (index == _currPageValue.floor()) {
@@ -80,45 +139,46 @@ class _FoodPageBodyState extends State<FoodPageBody> {
     return Transform(
       transform: matrix,
       child: Stack(children: [
-        Container(
-          height: 220,
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              color: index.isEven ? Colors.amber : Colors.greenAccent,
-              image: const DecorationImage(
-                  image: AssetImage("assets/image/banhxeo.jpg"),
-                  fit: BoxFit.cover)),
+        GestureDetector(
+          onTap: () {
+            
+          },
+          child: Container(
+            height: Dimension.pageViewContainer, //220
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                image: const DecorationImage(
+                    image: AssetImage("assets/image/banhxeo.jpg"),
+                    fit: BoxFit.cover)),
+          ),
         ),
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
             padding: const EdgeInsets.all(10),
-            height: 120,
+            height: Dimension.pageViewTextContainer, //120
             margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
-                color: Appcolor.shadeblack,
-                /* blurRadius: 5.0, */
-                offset:const Offset(0, 5)
-              ),
+                  color: Appcolor.shadeblack,
+                  blurRadius: 5.0,
+                  offset: const Offset(0, 5)),
               BoxShadow(
-                color: Appcolor.shadeblack,
-                /* blurRadius: 5.0, */
-                offset:const Offset(5, 0)
-              )
-            ],
-                borderRadius: BorderRadius.circular(30), color: Colors.white),
+                  color: Appcolor.shadeblack,
+                  blurRadius: 5.0,
+                  offset: const Offset(5, 0))
+            ], borderRadius: BorderRadius.circular(30), color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   "Binh Dinh",
                   style:
-                      AppStyle.headlineStyle1.copyWith(color: Appcolor.black),
+                      AppStyle.headlineStyle2.copyWith(color: Appcolor.black),
                 ),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: Dimension.height10,
                 ),
                 Row(
                   children: [
@@ -193,9 +253,9 @@ class IconandTextWidget extends StatelessWidget {
           icon,
           color: iconColor,
         ),
-        const SizedBox(
+        /* const SizedBox(
           width: 1,
-        ),
+        ), */
         Text(
           text,
           style: TextStyle(color: textcolor),
@@ -204,3 +264,76 @@ class IconandTextWidget extends StatelessWidget {
     );
   }
 }
+
+Widget ColumnofPopular(
+    {required String title,
+    required String subTitle,
+    required String textIcon1,
+    required String textIcon2,
+    required String textIcon3,
+    required String path}) {
+  return  Container(
+        color: Appcolor.iconColor1,
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.only(left: 20, right: 10),
+        child: Row(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  color: Appcolor.mainColor,
+                  borderRadius: BorderRadius.circular(20),
+                  image: DecorationImage(
+                      image: AssetImage("assets/image/$path"),
+                      fit: BoxFit.cover)),
+              width: Dimension.screenWidth * 0.3,
+              height: Dimension.pageViewTextContainer,
+            ),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                height: Dimension.pageViewTextContainer2, //100
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10), color: Colors.white),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style:
+                          AppStyle.headlineStyle2.copyWith(color: Appcolor.black),
+                    ),
+                    SizedBox(height: Dimension.height5),
+                    Text(
+                      subTitle,
+                      style: AppStyle.headlineStyle4,
+                    ),
+                    SizedBox(height: Dimension.height5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconandTextWidget(
+                            icon: Icons.circle_sharp,
+                            text: textIcon1,
+                            textcolor: Appcolor.shadeblack,
+                            iconColor: Appcolor.iconColor1),
+                        IconandTextWidget(
+                            icon: Icons.location_on,
+                            text: textIcon2,
+                            textcolor: Appcolor.shadeblack,
+                            iconColor: Appcolor.mainColor),
+                        IconandTextWidget(
+                            icon: Icons.access_time_outlined,
+                            text: textIcon3,
+                            textcolor: Appcolor.shadeblack,
+                            iconColor: Appcolor.iconColor2)
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+

@@ -1,9 +1,10 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../home/home.dart';
+import '../home/navigator/foodpage_details.dart';
+import '../home/navigator/recommend_foot_page.dart';
 import 'app_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,10 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
   } */
 
   static final List<Widget> _wigetItems = <Widget>[
-    DisplayScreen(),
-    const Center(child:  Text("data")),
-    const Center(child:  Text("data")),
-    const Center(child:  Text("data")),
+    const DisplayScreen(),
+    const FoodPage(),
+    const RecommendedFoodPage(),
+    const Center(child: Text("data")),
   ];
   @override
   Widget build(BuildContext context) {
@@ -35,9 +36,12 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           body: _wigetItems[state.index],
           bottomNavigationBar: BottomNavigationBar(
-              currentIndex: state.index /* SelectedItems */, // Cho biết item nào được chọn
+              currentIndex: state
+                  .index /* SelectedItems */, // Cho biết item nào được chọn
               type: BottomNavigationBarType.fixed, // cố định item
-              onTap: (value){context.read<AppBloc>().add(TriggleAppEvent(value));},
+              onTap: (value) {
+                context.read<AppBloc>().add(TriggleAppEvent(value));
+              },
               elevation: 20, // shadow
               showSelectedLabels: true,
               showUnselectedLabels: true,

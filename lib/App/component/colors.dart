@@ -13,4 +13,5 @@ class Appcolor{
   static final Color yellowColor = const Color(0xFFffd379);
   static final Color black = Colors.black54;
   static final Color shadeblack = Colors.black38;
+  static final Color whiteColor = Colors.white;
 }

@@ -15,33 +15,36 @@ class _DisplayScreenState extends State<DisplayScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: [
-            Container(padding:const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Column(
-                    children: [
-                      Text(
-                        "VietNam",
-                        style: AppStyle.headlineStyle1
-                            .copyWith(color: Appcolor.mainColor),
-                      ),
-                      Row(children: [
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    Column(
+                      children: [
                         Text(
-                          "Tp HCM",
-                          style: AppStyle.headlineStyle4
-                              .copyWith(color: Appcolor.black),
+                          "VietNam",
+                          style: AppStyle.headlineStyle1
+                              .copyWith(color: Appcolor.mainColor),
                         ),
-                        const Icon(Icons.arrow_drop_down_rounded)
-                      ])
-                    ],
-                  )
-                ],
+                        Row(children: [
+                          Text(
+                            "Tp HCM",
+                            style: AppStyle.headlineStyle4
+                                .copyWith(color: Appcolor.black),
+                          ),
+                          const Icon(Icons.arrow_drop_down_rounded)
+                        ])
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            FoodPageBody(),
-          ],
+              FoodPageBody(),
+            ],
+          ),
         ),
       ),
     );

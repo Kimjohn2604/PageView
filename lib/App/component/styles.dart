@@ -6,9 +6,9 @@ class AppStyle {
   static TextStyle headlineStyle1 =
       TextStyle(fontSize: 26, fontWeight: FontWeight.bold);
   static TextStyle headlineStyle2 =
-      TextStyle(fontSize: 21, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 23, fontWeight: FontWeight.bold);
   static TextStyle headlineStyle3 =
-      TextStyle(fontSize: 17, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 17, fontWeight: FontWeight.normal);
   static TextStyle headlineStyle4 =
-      TextStyle(fontSize: 15, fontWeight: FontWeight.w400);
+      TextStyle(fontSize: 13, fontWeight: FontWeight.w300);
 }

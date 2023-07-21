@@ -4,6 +4,7 @@ import 'package:app/service/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 Future<void> main() async {
   await Global.init();
@@ -34,12 +35,12 @@ class MyApp extends StatelessWidget {
           ),
         ], */
         child: ScreenUtilInit(
-          builder: (context, snap) => MaterialApp(
+          builder: (context, snap) => GetMaterialApp(
             theme: ThemeData(
                 appBarTheme: const AppBarTheme(
                     iconTheme: IconThemeData(color:Colors.black),
                     elevation: 0, 
-                    backgroundColor: Colors.white,
+                    /* backgroundColor: Colors.white, */
                     )),
             debugShowCheckedModeBanner: false,
             /* home: const Wellcome(), */
