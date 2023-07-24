@@ -23,7 +23,7 @@ class _SignInState extends State<SignIn> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  loginIcons(),
+                  AvatarIcons(path: "tiki.jpg",height: 50,width: 50),
                   const TextFieldPass(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),

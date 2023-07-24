@@ -22,5 +22,8 @@ class StorageService {
   bool getIsLogged() {
     return _pref.getString(AppConstant.STORAGE_USER_TOKEY_KEY)==null?false:true;
   }
-
+  Future<bool> remove(String key){
+    return _pref.remove(key);
+  }
 }
+

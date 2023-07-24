@@ -24,21 +24,21 @@ AppBar buildAppBar({required String title}) {
   );
 }
 
-Widget loginIcons() {
+Widget AvatarIcons({required double width,required double height ,required String path}) {
   return Container(
     width: double.infinity,
-    margin: const EdgeInsets.symmetric(vertical: 50),
+    margin: const EdgeInsets.symmetric(vertical: 40),
     child: Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15.w),
-          image: const DecorationImage(
+          borderRadius: BorderRadius.circular(15),
+          image:  DecorationImage(
             /* fit: BoxFit.fitHeight, */
             image: AssetImage(
-              "assets/icons/tiki.jpg",
+              "assets/icons/$path",
             ),
           )),
-      width: 50.w,
-      height: 50.h,
+      width: width,
+      height: height,
     ),
   );
 }

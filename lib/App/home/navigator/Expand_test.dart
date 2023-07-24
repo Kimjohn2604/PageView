@@ -25,7 +25,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
       firstText = widget.text;
       secondText = "";
     }
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
                   child: Row(
                     children: [
                       Text(
-                        "Show more",
+                        hiddenText ? "Show more" :"Hide",
                         style: AppStyle.headlineStyle3.copyWith(color: Appcolor.mainColor),
                       ),
                       Icon(

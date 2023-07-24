@@ -4,7 +4,8 @@ import 'package:app/service/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
+
 
 Future<void> main() async {
   await Global.init();
@@ -17,7 +18,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers:[... AppPage.allBlocProviders(context),],
+        providers: [
+          ...AppPage.allBlocProviders(context),
+        ],
         /* providers: [
           BlocProvider(
             lazy: false,
@@ -38,10 +41,10 @@ class MyApp extends StatelessWidget {
           builder: (context, snap) => GetMaterialApp(
             theme: ThemeData(
                 appBarTheme: const AppBarTheme(
-                    iconTheme: IconThemeData(color:Colors.black),
-                    elevation: 0, 
-                    /* backgroundColor: Colors.white, */
-                    )),
+              iconTheme: IconThemeData(color: Colors.black),
+              elevation: 0,
+              /* backgroundColor: Colors.white, */
+            )),
             debugShowCheckedModeBanner: false,
             /* home: const Wellcome(), */
             onGenerateRoute: AppPage.generateRouteSettings,

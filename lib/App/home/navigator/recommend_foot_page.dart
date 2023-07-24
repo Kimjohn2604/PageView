@@ -55,12 +55,12 @@ class RecommendedFoodPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const AppIcon(icon: Icons.remove),
+                 AppIcon(icon: Icons.remove),
                 Text(
                   "\$8.05 " + "x" + "0",
                   style: AppStyle.headlineStyle2,
                 ),
-                const AppIcon(icon: Icons.add),
+                 AppIcon(icon: Icons.add),
               ],
             ),
           ),

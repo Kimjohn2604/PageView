@@ -28,7 +28,7 @@ class FoodPage extends StatelessWidget {
                 ),
                 Container(
                   padding: const EdgeInsets.all(15),
-                  child: const Row(
+                  child:  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AppIcon(icon: Icons.arrow_back),
@@ -105,7 +105,7 @@ class FoodPage extends StatelessWidget {
                         style: AppStyle.headlineStyle2
                             .copyWith(color: Appcolor.black),
                       ),
-                      ExpandableTextWidget(
+                      const ExpandableTextWidget(
                         text:
                             "Món bánh xèo Bình Định là một món ăn truyền thống của vùng miền miền Trung Việt Nam, và nó nổi tiếng với hương vị thơm ngon và đa dạng\nNguyên liệu chất lượng: Chọn các nguyên liệu tươi ngon và chất lượng để làm bánh xèo. Điều này bao gồm bột nếp, nước dừa, thịt heo hoặc tôm tươi, gia vị và rau xanh\nNhưng quan trọng nhất là sự đam mê và tình yêu với nấu ăn. Kỹ năng có thể được rèn luyện, nhưng tình yêu và đam mê sẽ tạo ra món ăn thơm ngon, ngọt ngào và đậm đà hơn. Hy vọng rằng các yếu tố này sẽ giúp bạn làm món bánh xèo Bình Định thật ngon miệng..",
                       )
