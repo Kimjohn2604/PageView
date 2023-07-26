@@ -11,27 +11,21 @@ import '../../routes/names.dart';
 AppBar buildAppBarProfile() {
   return AppBar(
     backgroundColor: Appcolor.whiteColor,
-    title: Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Icon(Icons.menu),
-          Text(
-            "Profile",
-            style: AppStyle.headlineStyle1.copyWith(color: Appcolor.black),
-          ),
-          const Icon(Icons.more_vert_outlined),
-        ],
-      ),
+    title: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Icon(Icons.menu),
+        Text(
+          "Profile",
+          style: AppStyle.headlineStyle1.copyWith(color: Appcolor.black),
+        ),
+        const Icon(Icons.more_vert_outlined),
+      ],
     ),
   );
 }
 
 Widget buildListView(BuildContext context) {
-  void loggout() {
-    print("loggout");
-  }
-
   return Column(
     children: [
       ContainerListView(
@@ -68,8 +62,8 @@ Widget buildListView(BuildContext context) {
                         child: const Text("Cancel")),
                     TextButton(
                         onPressed: () {
-                          Global.storageService.remove(
-                              AppConstant.STORAGE_USER_TOKEY_KEY);
+                          Global.storageService
+                              .remove(AppConstant.STORAGE_USER_TOKEY_KEY);
                           Navigator.of(context).pushNamedAndRemoveUntil(
                               Approutes.SIGN_IN, (route) => false);
                         },
@@ -92,12 +86,18 @@ Widget ContainerListView({
   required String title,
 }) {
   return Container(
-    margin: const EdgeInsets.only(bottom: 15),
-    padding: const EdgeInsets.only(left: 30, right: 30),
+    decoration: BoxDecoration(boxShadow: [
+      BoxShadow(
+          color: Appcolor.shadeblack,
+          blurRadius: 1.0,
+          offset: const Offset(0, 3)),
+    ], color: Appcolor.whiteColor, borderRadius: BorderRadius.circular(12)),
+    margin: const EdgeInsets.only(bottom: 15,left: 30,right: 30),
     child: Row(
       children: [
         Container(
-          margin: const EdgeInsets.only(right: 15),
+          margin: const EdgeInsets.symmetric(horizontal: 15),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           child: icon /* AppIcon(icon: Icons.settings) */,
         ),
         Text(
@@ -112,7 +112,7 @@ Widget ContainerListView({
 Widget BuildBottomContainerView() {
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 10),
-    margin: const EdgeInsets.only(bottom: 10),
+    margin: const EdgeInsets.only(bottom: 20),
     height: 70,
     child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
       BottomContainer(icon: const Icon(Icons.shopping_cart), title: "My shop"),
@@ -125,8 +125,16 @@ Widget BuildBottomContainerView() {
 
 Widget BottomContainer({required Widget icon, required String title}) {
   return Container(
-    decoration: BoxDecoration(
-        color: Appcolor.iconColor1, borderRadius: BorderRadius.circular(15)),
+    decoration: BoxDecoration(boxShadow: [
+      BoxShadow(
+          color: Appcolor.shadeblack,
+          blurRadius: 5.0,
+          offset: const Offset(0, 5)),
+      BoxShadow(
+          color: Appcolor.shadeblack,
+          blurRadius: 5.0,
+          offset: const Offset(5, 0))
+    ], color: Appcolor.iconColor1, borderRadius: BorderRadius.circular(15)),
     width: Dimension.screenWidth / 4.4,
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,

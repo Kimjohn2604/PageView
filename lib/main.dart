@@ -1,14 +1,15 @@
-
+import 'package:app/App/controller/popular_product_controller.dart';
 import 'package:app/routes/pages.dart';
 import 'package:app/service/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
+import 'App/helper/dependencies.dart' as dep;
 
 Future<void> main() async {
   await Global.init();
+  await dep.init();
   runApp(const MyApp());
 }
 
@@ -17,6 +18,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.find<PopularProDuctController>().getPopularProDuctList();
+    //ghi app chạy thì chạy method getPopularProDuctList => gửi yêu cầu đến server=> nếu nhận đc data
+    //thì nó lưu trong list
     return MultiBlocProvider(
         providers: [
           ...AppPage.allBlocProviders(context),

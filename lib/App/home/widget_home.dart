@@ -1,9 +1,12 @@
-
 import 'package:app/App/component/dimension.dart';
+import 'package:app/App/controller/popular_product_controller.dart';
+import 'package:app/App/models/product_model.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../component/colors.dart';
+import '../component/constant.dart';
 import '../component/styles.dart';
 
 class FoodPageBody extends StatefulWidget {
@@ -39,25 +42,29 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          height: Dimension.pageView, //(320)
-          child: PageView.builder(
-              controller: pageController,
-              itemCount: 5,
-              itemBuilder: (context, snap) {
-                return _buildPageItem(snap);
-              }),
-        ),
-        DotsIndicator(
-          dotsCount: 5,
-          position: _currPageValue.toInt(),
-          decorator: DotsDecorator(
-            size: const Size.square(9.0),
-            activeSize: const Size(18.0, 9.0),
-            activeShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
-          ),
-        ),
+        GetBuilder<PopularProDuctController>(builder: (popularProducts) {
+          return Container(
+            height: Dimension.pageView, //(320)
+            child: PageView.builder(
+                controller: pageController,
+                itemCount: popularProducts.popularProductList.length,
+                itemBuilder: (context, snap) {
+                  return _buildPageItem(snap , popularProducts.popularProductList[snap]);
+                }),
+          );
+        }),
+        GetBuilder<PopularProDuctController>(builder: (popularProducts) {
+          return DotsIndicator(
+            dotsCount:  popularProducts.popularProductList.isEmpty ? 1 : popularProducts.popularProductList.length,
+            position: _currPageValue.toInt(),
+            decorator: DotsDecorator(
+              size: const Size.square(9.0),
+              activeSize: const Size(18.0, 9.0),
+              activeShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0)),
+            ),
+          );
+        }),
         SizedBox(
           height: Dimension.height30,
         ),
@@ -105,7 +112,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   }
 
 ///////
-  Widget _buildPageItem(int index) {
+  Widget _buildPageItem(int index , ProductModel popularProduct) {
     Matrix4 matrix = Matrix4.identity();
     if (index == _currPageValue.floor()) {
       var currScale = 1 - (_currPageValue - index) * (1 - _scaleFactor);
@@ -140,16 +147,15 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       transform: matrix,
       child: Stack(children: [
         GestureDetector(
-          onTap: () {
-            
-          },
+          onTap: () {},
           child: Container(
             height: Dimension.pageViewContainer, //220
             margin: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                image: const DecorationImage(
-                    image: AssetImage("assets/image/banhxeo.jpg"),
+                image:  DecorationImage(
+                    /* image: AssetImage("assets/image/banhxeo.jpg"), */
+                    image: NetworkImage(AppConstants.BASE_URL+"/uploads/"+popularProduct.img!),
                     fit: BoxFit.cover)),
           ),
         ),
@@ -158,7 +164,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           child: Container(
             padding: const EdgeInsets.all(10),
             height: Dimension.pageViewTextContainer, //120
-            margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
             decoration: BoxDecoration(boxShadow: [
               BoxShadow(
                   color: Appcolor.shadeblack,
@@ -173,9 +179,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Binh Dinh",
+                  popularProduct.name!,
                   style:
-                      AppStyle.headlineStyle2.copyWith(color: Appcolor.black),
+                      AppStyle.headlineStyle3.copyWith(color: Appcolor.black),
                 ),
                 SizedBox(
                   height: Dimension.height10,
@@ -272,68 +278,66 @@ Widget ColumnofPopular(
     required String textIcon2,
     required String textIcon3,
     required String path}) {
-  return  Container(
-        color: Appcolor.iconColor1,
-        margin: const EdgeInsets.symmetric(vertical: 10),
-        padding: const EdgeInsets.only(left: 20, right: 10),
-        child: Row(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: Appcolor.mainColor,
-                  borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
-                      image: AssetImage("assets/image/$path"),
-                      fit: BoxFit.cover)),
-              width: Dimension.screenWidth * 0.3,
-              height: Dimension.pageViewTextContainer,
-            ),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                height: Dimension.pageViewTextContainer2, //100
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10), color: Colors.white),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style:
-                          AppStyle.headlineStyle2.copyWith(color: Appcolor.black),
-                    ),
-                    SizedBox(height: Dimension.height5),
-                    Text(
-                      subTitle,
-                      style: AppStyle.headlineStyle4,
-                    ),
-                    SizedBox(height: Dimension.height5),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconandTextWidget(
-                            icon: Icons.circle_sharp,
-                            text: textIcon1,
-                            textcolor: Appcolor.shadeblack,
-                            iconColor: Appcolor.iconColor1),
-                        IconandTextWidget(
-                            icon: Icons.location_on,
-                            text: textIcon2,
-                            textcolor: Appcolor.shadeblack,
-                            iconColor: Appcolor.mainColor),
-                        IconandTextWidget(
-                            icon: Icons.access_time_outlined,
-                            text: textIcon3,
-                            textcolor: Appcolor.shadeblack,
-                            iconColor: Appcolor.iconColor2)
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
+  return Container(
+    color: Appcolor.iconColor1,
+    margin: const EdgeInsets.symmetric(vertical: 10),
+    padding: const EdgeInsets.only(left: 20, right: 10),
+    child: Row(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              color: Appcolor.mainColor,
+              borderRadius: BorderRadius.circular(20),
+              image: DecorationImage(
+                  image: AssetImage("assets/image/$path"), fit: BoxFit.cover)),
+          width: Dimension.screenWidth * 0.3,
+          height: Dimension.pageViewTextContainer,
         ),
-      );
-    }
-
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            height: Dimension.pageViewTextContainer2, //100
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10), color: Colors.white),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style:
+                      AppStyle.headlineStyle2.copyWith(color: Appcolor.black),
+                ),
+                SizedBox(height: Dimension.height5),
+                Text(
+                  subTitle,
+                  style: AppStyle.headlineStyle4,
+                ),
+                SizedBox(height: Dimension.height5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconandTextWidget(
+                        icon: Icons.circle_sharp,
+                        text: textIcon1,
+                        textcolor: Appcolor.shadeblack,
+                        iconColor: Appcolor.iconColor1),
+                    IconandTextWidget(
+                        icon: Icons.location_on,
+                        text: textIcon2,
+                        textcolor: Appcolor.shadeblack,
+                        iconColor: Appcolor.mainColor),
+                    IconandTextWidget(
+                        icon: Icons.access_time_outlined,
+                        text: textIcon3,
+                        textcolor: Appcolor.shadeblack,
+                        iconColor: Appcolor.iconColor2)
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}

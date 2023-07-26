@@ -36,7 +36,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
               children: [
                 Text(hiddenText
                     ? (firstText + "...")
-                    : (firstText + secondText),style: AppStyle.headlineStyle3,),
+                    : (firstText + secondText),style: AppStyle.textStyle,),
                 InkWell(
                   onTap: () {
                     setState(() {
@@ -47,7 +47,7 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
                     children: [
                       Text(
                         hiddenText ? "Show more" :"Hide",
-                        style: AppStyle.headlineStyle3.copyWith(color: Appcolor.mainColor),
+                        style: AppStyle.textStyle.copyWith(color: Appcolor.mainColor),
                       ),
                       Icon(
                         hiddenText? Icons.arrow_drop_down :Icons.arrow_drop_up,

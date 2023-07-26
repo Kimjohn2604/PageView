@@ -124,7 +124,6 @@ Widget _page(int index, BuildContext context,
                 .push(MaterialPageRoute(builder: (context) =>const SignIn())); */
             Global.storageService.setBool(AppConstant.STORAGE_DEVICE_OPEN_FIRST_TIME, true);
             Navigator.of(context).pushNamedAndRemoveUntil(Approutes.SIGN_IN,(route) => false );
-              /* Navigator.of(context).pushNamedAndRemoveUntil("myhome", (route) => false) */
           }
         },
         child: Container(

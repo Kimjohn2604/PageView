@@ -8,7 +8,7 @@ class AppStyle {
   static TextStyle headlineStyle2 =
       TextStyle(fontSize: 23, fontWeight: FontWeight.bold);
   static TextStyle headlineStyle3 =
-      TextStyle(fontSize: 17, fontWeight: FontWeight.normal);
+      TextStyle(fontSize: 18, fontWeight: FontWeight.bold);
   static TextStyle headlineStyle4 =
       TextStyle(fontSize: 13, fontWeight: FontWeight.w300);
 }

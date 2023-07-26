@@ -28,7 +28,7 @@ class _RegisterState extends State<Register> {
                 children: [
                   Container(
                       alignment: Alignment.center,
-                      margin: EdgeInsets.only(bottom: 20),
+                      margin:const EdgeInsets.only(bottom: 20),
                       width: double.infinity,
                       height: 90,
                       child: const Text("Enter your details and sign-up")),
