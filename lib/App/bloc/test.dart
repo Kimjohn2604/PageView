@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../home/home.dart';
-import '../home/navigator/foodpage_details.dart';
+
 import '../home/navigator/recommend_foot_page.dart';
 import '../settings_screen/setting_page.dart';
 import 'app_bloc.dart';
@@ -15,27 +14,31 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with AutomaticKeepAliveClientMixin<HomeScreen> {
   /* int SelectedItems = 0;
   void Change(int index) {
     setState(() {
       SelectedItems = index;
     });
   } */
-
+  @override
+  bool get wantKeepAlive => true;
   static final List<Widget> _wigetItems = <Widget>[
     const DisplayScreen(),
-    const FoodPage(),
-    const RecommendedFoodPage(),
+    /* const PopularFoodPage(), */
+    const Text("data"),
+    const Text("data"),
     const SettingPage()
   ];
   @override
   Widget build(BuildContext context) {
-    print("rebuild");
+    super.build(context);
+    print("rerender");
     return BlocBuilder<AppBloc, AppState>(
       builder: (context, state) {
         return Scaffold(
-          body: _wigetItems[state.index],
+          body: IndexedStack(children: [_wigetItems[state.index]]),
           bottomNavigationBar: BottomNavigationBar(
               currentIndex: state
                   .index /* SelectedItems */, // Cho biết item nào được chọn
@@ -51,24 +54,12 @@ class _HomeScreenState extends State<HomeScreen> {
               items: const [
                 BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.search), label: 'Action'),
+                    icon: Icon(Icons.search), label: 'Search'),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.airplane_ticket), label: 'Ticket'),
+                    icon: Icon(Icons.shopping_cart), label: 'Cart'),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.person), label: 'person')
               ]),
-          /* body: Container(
-            child: ListView.builder(itemBuilder: (context,index){
-              return InkWell(
-                onTap: (){
-                  Navigator.of(context).push(snap[index].id);
-                },
-                child: Container(
-                  child: Text("ticket 1 "),
-                ),
-              );
-            }),
-          ) */
         );
       },
     );

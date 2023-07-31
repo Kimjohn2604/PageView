@@ -1,14 +1,15 @@
 import 'package:app/App/bloc/app_bloc.dart';
+import 'package:app/App/home/home.dart';
+import 'package:app/App/home/navigator/foodpage_details.dart';
+import 'package:app/App/home/navigator/recommend_foot_page.dart';
 import 'package:app/Wellcom/bloc/screen_wellcom.dart';
 import 'package:app/Wellcom/bloc/wellcom_bloc.dart';
 import 'package:app/login/bloc/sign_in_bloc.dart';
 import 'package:app/login/screen_sign_in.dart';
 import 'package:app/register/bloc/register_bloc.dart';
 import 'package:app/register/screen_register.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../App/bloc/test.dart';
 import '../service/global.dart';
 import 'names.dart';
@@ -31,10 +32,9 @@ class AppPage {
       PageEntity(
           route: Approutes.HOMESCREEN,
           page:  HomeScreen(),
-          bloc: BlocProvider(create: (_) => AppBloc()))
+          bloc: BlocProvider(create: (_) => AppBloc())),
     ];
   }
-
   static List<dynamic> allBlocProviders(BuildContext context) {
     List<dynamic> blocprovider = <dynamic>[];
     for (var bloc in routes()) {

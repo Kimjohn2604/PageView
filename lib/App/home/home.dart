@@ -42,7 +42,7 @@ class _DisplayScreenState extends State<DisplayScreen> {
                   ],
                 ),
               ),
-              FoodPageBody(),
+              const FoodPageBody(),
             ],
           ),
         ),

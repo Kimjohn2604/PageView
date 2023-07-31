@@ -1,3 +1,4 @@
+import 'package:app/App/component/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'component/widget_login.dart';
@@ -18,7 +19,7 @@ class _SignInState extends State<SignIn> {
       ),
       child: SafeArea(
         child: Scaffold(
-            appBar: buildAppBar(title: "Log in"),
+            appBar: buildAppBar(title: "Log in"),backgroundColor: Appcolor.whiteColor,
             body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

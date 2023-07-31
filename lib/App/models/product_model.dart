@@ -1,20 +1,3 @@
-/* {
-  "total_size" :6,
-  "type_id":2,
-  "offset": 0,
-  "products" :[
-    {
-      "id": "String",
-      "name":,
-      "description":,
-      "price":,
-      "stars":,
-      "id":,
-      "id":,
-
-    }
-  ]
-} */
 class Product {
   int? _totalSize;
   int? _typeId;
@@ -45,7 +28,7 @@ class Product {
         _products.add(ProductModel.fromJson(value));
       } */
       (json['products'] as List).forEach((v) {
-        _products!.add(ProductModel.fromJson(v));
+        _products.add(ProductModel.fromJson(v));
       });
     }
   }

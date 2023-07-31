@@ -1,38 +1,61 @@
+import 'package:app/App/bloc/test.dart';
 import 'package:app/App/component/colors.dart';
 import 'package:app/App/component/dimension.dart';
 import 'package:app/App/component/styles.dart';
+import 'package:app/App/controller/recommended_product_controller.dart';
 import 'package:app/App/home/navigator/Expand_test.dart';
 import 'package:app/App/home/navigator/icons.dart';
+import 'package:app/App/models/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../component/constant.dart';
 
 class RecommendedFoodPage extends StatelessWidget {
-  const RecommendedFoodPage({super.key});
+  final int id;
+  const RecommendedFoodPage({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
+    ProductModel recommendProduct =
+        Get.find<RecommendedProDuctController>().recommendedProductList[id];
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
+              automaticallyImplyLeading: false,
+              title: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                  },
+                  child: AppIcon(icon: Icons.clear)),
               bottom: PreferredSize(
+                  preferredSize: const Size.fromHeight(0),
                   child: Container(
-                      padding: EdgeInsets.only(top: 5, bottom: 10),
+                      
+                      padding: const EdgeInsets.only(top: 5, bottom: 10),
                       width: double.maxFinite,
                       color: Appcolor.whiteColor,
                       child: Center(
                           child: Text(
                         "Tiêu đề",
                         style: AppStyle.headlineStyle1,
-                      ))),
-                  preferredSize: Size.fromHeight(0)),
+                      )))),
               pinned: true, // cố định tiêu đề
               backgroundColor: Appcolor.whiteColor,
-              expandedHeight: Dimension.screenHeight * 0.3,
+              expandedHeight: Dimension.screenHeight * 0.45,
               flexibleSpace: FlexibleSpaceBar(
-                background: Image.asset(
-                  "assets/image/banhxeo.jpg",
-                  fit: BoxFit.cover,
+                background: Container(
+                  decoration: BoxDecoration(
+                      color: Appcolor.mainColor,
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          /* image: AssetImage("assets/image/$path"), fit: BoxFit.cover */
+                          image: NetworkImage(AppConstants.BASE_URL +
+                              "/uploads/" +
+                              recommendProduct.img!))),
                 ),
               ),
             ),
@@ -55,22 +78,23 @@ class RecommendedFoodPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                 AppIcon(icon: Icons.remove),
+                AppIcon(icon: Icons.remove),
                 Text(
-                  "\$8.05 " + "x" + "0",
+                  "\$${recommendProduct.price} x 0",
                   style: AppStyle.headlineStyle2,
                 ),
-                 AppIcon(icon: Icons.add),
+                AppIcon(icon: Icons.add),
               ],
             ),
           ),
-          Container(margin: const EdgeInsets.symmetric(vertical: 10),
+          Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                   color: Appcolor.mainColor,
                   borderRadius: BorderRadius.circular(15)),
               child: Text(
-                "\$0.08 Add to Cart ",
+                "\$${recommendProduct.price} Add to Cart ",
                 style: AppStyle.headlineStyle2.copyWith(color: Colors.white),
               )),
         ],

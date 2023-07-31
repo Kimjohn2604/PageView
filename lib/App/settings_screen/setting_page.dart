@@ -11,9 +11,10 @@ class SettingPage extends StatefulWidget {
   State<SettingPage> createState() => _SettingPageState();
 }
 
-class _SettingPageState extends State<SettingPage> {
+class _SettingPageState extends State<SettingPage> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return  SafeArea(
       child: Scaffold(
         appBar: buildAppBarProfile(),
@@ -29,4 +30,9 @@ class _SettingPageState extends State<SettingPage> {
       ),
     );
   }
+  
+  @override
+  bool get wantKeepAlive => true;
+
+  
 }

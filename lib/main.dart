@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'App/controller/recommended_product_controller.dart';
 import 'App/helper/dependencies.dart' as dep;
 
 Future<void> main() async {
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.find<PopularProDuctController>().getPopularProDuctList();
+    Get.find<RecommendedProDuctController>().getRecommendedProDuctList();
     //ghi app chạy thì chạy method getPopularProDuctList => gửi yêu cầu đến server=> nếu nhận đc data
     //thì nó lưu trong list
     return MultiBlocProvider(
