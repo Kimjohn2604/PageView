@@ -11,6 +11,7 @@ import '../../routes/names.dart';
 AppBar buildAppBarProfile() {
   return AppBar(
     backgroundColor: Appcolor.whiteColor,
+    automaticallyImplyLeading: false,
     title: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -29,23 +30,23 @@ Widget buildListView(BuildContext context) {
   return Column(
     children: [
       ContainerListView(
-        icon: AppIcon(icon: Icons.settings),
+        icon: AppIcon(icon: Icons.settings,replaceColr: false,),
         title: 'Setting',
       ),
       ContainerListView(
-        icon: AppIcon(icon: Icons.payment),
+        icon: AppIcon(icon: Icons.payment,replaceColr: false,),
         title: 'Payment Details',
       ),
       ContainerListView(
-        icon: AppIcon(icon: Icons.favorite),
+        icon: AppIcon(icon: Icons.favorite,replaceColr: false,),
         title: 'Love',
       ),
       ContainerListView(
-        icon: AppIcon(icon: Icons.emoji_events),
+        icon: AppIcon(icon: Icons.emoji_events,replaceColr: false,),
         title: 'Achievement',
       ),
       ContainerListView(
-        icon: AppIcon(icon: Icons.info_outline),
+        icon: AppIcon(icon: Icons.info_outline,replaceColr: false,),
         title: 'About',
       ),
       GestureDetector(
@@ -73,7 +74,7 @@ Widget buildListView(BuildContext context) {
               });
         },
         child: ContainerListView(
-          icon: AppIcon(icon: Icons.logout),
+          icon: AppIcon(icon: Icons.logout,replaceColr: false,),
           title: 'Log out',
         ),
       ),

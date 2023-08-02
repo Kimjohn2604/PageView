@@ -2,6 +2,7 @@ import 'package:app/App/bloc/test.dart';
 import 'package:app/App/component/dimension.dart';
 import 'package:app/App/controller/cart_controller.dart';
 import 'package:app/App/controller/popular_product_controller.dart';
+import 'package:app/App/home/cart_screen/cart_screen.dart';
 import 'package:app/App/home/navigator/Expand_test.dart';
 import 'package:app/App/home/navigator/icons.dart';
 import 'package:app/App/models/product_model.dart';
@@ -50,8 +51,36 @@ class PopularFoodPage extends StatelessWidget {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => HomeScreen()));
                             },
-                            child: AppIcon(icon: Icons.arrow_back)),
-                        AppIcon(icon: Icons.shopping_cart_checkout),
+                            child: AppIcon(
+                              icon: Icons.arrow_back,
+                              replaceColr: false,
+                            )),
+                        GestureDetector(onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const CartPage(displayArrow: false,)));
+                        },
+                          child: GetBuilder<PopularProDuctController>(
+                              builder: (controller) {
+                            return Stack(
+                              children: [
+                                AppIcon(
+                                  icon: Icons.shopping_cart_checkout,
+                                  replaceColr: false,
+                                ),
+                                // số lượng trong giỏ hàng lớn hơn 1
+                                Get.find<PopularProDuctController>().totalItems >=1
+                                    ? Stack(alignment: Alignment.center,
+                                      children:[AppIcon(
+                                          icon: Icons.circle,
+                                          replaceColr: true,size: 18,
+                                        ),
+                                        Text('${controller.totalItems}')],
+                                    )
+                                    : Container(),
+                              ],
+                            );
+                          }),
+                        ),
                       ],
                     ),
                   ),
@@ -178,7 +207,9 @@ class PopularFoodPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      popularIntansce.addItem(popularProduct);//có dạng object của ProductModel
+                      popularIntansce.addItem(
+                          popularProduct); //có dạng object của ProductModel
+                      popularIntansce.initProduct(popularProduct, Get.find<CartController>());//test
                     },
                     child: Container(
                         padding: const EdgeInsets.all(12),

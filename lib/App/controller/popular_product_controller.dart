@@ -1,7 +1,9 @@
 import 'package:app/App/models/product_model.dart';
 import 'package:get/get.dart';
 
+import '../component/colors.dart';
 import '../data/repository/popular_product_repo.dart';
+import '../models/cart_model.dart';
 import 'cart_controller.dart';
 
 class PopularProDuctController extends GetxController {
@@ -16,7 +18,7 @@ class PopularProDuctController extends GetxController {
   bool isLoaded = false;
   int quantity = 0;
   int inCartItems = 0;
-  int get tong => inCartItems+quantity;
+  int get tong => inCartItems + quantity;
 
   Future<void> getPopularProDuctList() async {
     Response response = await popularProDuctRepo.getPopularProDuctList(); //uri
@@ -33,13 +35,14 @@ class PopularProDuctController extends GetxController {
   // hàm thể hiện tăng hoặc giảm các mục trên những lần nhấp vào các nút +(true) -(false)
   void setQuantity(bool isIncrement) {
     if (isIncrement) {
-      inCartItems+quantity++; // không dùng đc tong bởi vì hàm get chỉ có chức năng truy cập
-    } else if (inCartItems+quantity <0) {
-      /*  Get.snackbar("Notice!", "you can reduce more",
-          backgroundColor: Appcolor.mainColor, colorText: Appcolor.whiteColor); */
+      inCartItems +
+          quantity++; // không dùng đc tong bởi vì hàm get chỉ có chức năng truy cập
+    } else if (inCartItems + quantity < 1) {
+      Get.snackbar("Notice!", "you can reduce more",
+          backgroundColor: Appcolor.mainColor, colorText: Appcolor.whiteColor);
       return;
     } else {
-      inCartItems+quantity--;
+      inCartItems + quantity--;
     }
     update();
   }
@@ -48,24 +51,37 @@ class PopularProDuctController extends GetxController {
     quantity = 0;
     inCartItems = 0;
     _cart = cart;
+
     ///
     var exist = false;
     exist = _cart.isExistInCart(product);
-    if(exist){
-      inCartItems=_cart.getQuantity(product);
-      print("${product.id}" +"-" + inCartItems.toString());
+    if (exist) {
+      inCartItems = _cart.getQuantity(product);
+      print("${product.id}" + "-" + inCartItems.toString());
     }
     /////
   }
 
   void addItem(ProductModel product) {
-      _cart.addItem(product, quantity);
-      _cart.items.forEach((key, value) {
-        print("${value.quantity}");
+    /* if (tong == 0) {
+      _cart.items.removeWhere((key, value) {
+        return key == product.id!;
       });
-    /* else {
-      Get.snackbar("Notice!", "You should add at least one item",
-          backgroundColor: Appcolor.mainColor, colorText: Appcolor.whiteColor);
+      update();
+      return;
     } */
+    _cart.addItem(product, quantity);
+    _cart.items.forEach((key, value) {
+      print("${tong}");
+    });
+    update();
+  }
+
+  int get totalItems {
+    return _cart.totalItems;
+  }
+
+  List<CartModel> get getItems {
+    return _cart.getItems;
   }
 }

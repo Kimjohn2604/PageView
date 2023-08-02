@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../home/cart_screen/cart_screen.dart';
 import '../home/home.dart';
 
-import '../home/navigator/recommend_foot_page.dart';
 import '../settings_screen/setting_page.dart';
 import 'app_bloc.dart';
 
@@ -28,9 +28,10 @@ class _HomeScreenState extends State<HomeScreen>
     const DisplayScreen(),
     /* const PopularFoodPage(), */
     const Text("data"),
-    const Text("data"),
+    const CartPage(displayArrow: true,),
     const SettingPage()
   ];
+  List<Widget> get wigetItems => _wigetItems;
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -45,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen>
               type: BottomNavigationBarType.fixed, // cố định item
               onTap: (value) {
                 context.read<AppBloc>().add(TriggleAppEvent(value));
+                /* BlocProvider.of<AppBloc>(context).add(TriggleAppEvent(value)); */
               },
               elevation: 20, // shadow
               showSelectedLabels: true,
