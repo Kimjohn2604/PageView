@@ -24,6 +24,7 @@ class RecommendedFoodPage extends StatelessWidget {
         Get.find<RecommendedProDuctController>().recommendedProductList[id];
     Get.find<PopularProDuctController>()
         .initProduct(recommendProduct, Get.find<CartController>());
+    Get.find<CartController>();
     return Scaffold(
         body: SafeArea(
           child: CustomScrollView(
@@ -36,37 +37,45 @@ class RecommendedFoodPage extends StatelessWidget {
                     GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => HomeScreen()));
+                              builder: (context) => const HomeScreen()));
                         },
                         child: AppIcon(
                           icon: Icons.clear,
                           replaceColr: false,
                         )),
                     GetBuilder<PopularProDuctController>(builder: (controller) {
-                      return Stack(
-                        children: [
-                          GestureDetector(onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const CartPage(displayArrow: false,))),
-                            child: AppIcon(
+                      return GestureDetector(
+                        onTap: () =>
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const CartPage(
+                                      displayArrow: true,
+                                    ))),
+                        child: Stack(
+                          children: [
+                            AppIcon(
                               icon: Icons.shopping_cart_checkout,
                               replaceColr: false,
                             ),
-                          ),
-                          // số lượng trong giỏ hàng lớn hơn 1
-                          Get.find<PopularProDuctController>().totalItems >= 1
-                              ? Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    AppIcon(
-                                      icon: Icons.circle,
-                                      replaceColr: true,
-                                      size: 18,
-                                    ),
-                                    Text('${controller.totalItems}',style: AppStyle.headlineStyle3.copyWith(color: Appcolor.iconColor1),)
-                                  ],
-                                )
-                              : Container(),
-                        ],
+                            // số lượng trong giỏ hàng lớn hơn 1
+                            Get.find<PopularProDuctController>().totalItems >= 1
+                                ? Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      AppIcon(
+                                        icon: Icons.circle,
+                                        replaceColr: true,
+                                        size: 18,
+                                      ),
+                                      Text(
+                                        '${controller.totalItems}',
+                                        style: AppStyle.headlineStyle3.copyWith(
+                                            color: Appcolor.iconColor1),
+                                      )
+                                    ],
+                                  )
+                                : Container(),
+                          ],
+                        ),
                       );
                     }),
                   ],
@@ -86,15 +95,26 @@ class RecommendedFoodPage extends StatelessWidget {
                 backgroundColor: Appcolor.whiteColor,
                 expandedHeight: Dimension.screenHeight * 0.45,
                 flexibleSpace: FlexibleSpaceBar(
-                  background: Container(
-                    decoration: BoxDecoration(
-                        color: Appcolor.mainColor,
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            /* image: AssetImage("assets/image/$path"), fit: BoxFit.cover */
-                            image: NetworkImage(AppConstants.BASE_URL +
-                                "/uploads/" +
-                                recommendProduct.img!))),
+                  background: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Container(
+                                  decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                      "${AppConstants.BASE_URL}/uploads/${recommendProduct.img!}"),
+                                ),
+                              ))));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Appcolor.mainColor,
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              /* image: AssetImage("assets/image/$path"), fit: BoxFit.cover */
+                              image: NetworkImage(
+                                  "${AppConstants.BASE_URL}/uploads/${recommendProduct.img!}"))),
+                    ),
                   ),
                 ),
               ),
@@ -146,9 +166,9 @@ class RecommendedFoodPage extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  controller.addItem(
-                          recommendProduct);
-                  controller.initProduct(recommendProduct, Get.find<CartController>());//test
+                  controller.addItem(recommendProduct);
+                  controller.initProduct(
+                      recommendProduct, Get.find<CartController>()); //test
                 },
                 child: Container(
                     margin: const EdgeInsets.symmetric(vertical: 10),
@@ -157,7 +177,7 @@ class RecommendedFoodPage extends StatelessWidget {
                         color: Appcolor.mainColor,
                         borderRadius: BorderRadius.circular(15)),
                     child: Text(
-                      "\$${recommendProduct.price} Add to Cart ",
+                      "\$${controller.valueofItem(recommendProduct)} Add to Cart ",
                       style:
                           AppStyle.headlineStyle2.copyWith(color: Colors.white),
                     )),

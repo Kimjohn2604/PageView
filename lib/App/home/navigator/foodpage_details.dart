@@ -49,16 +49,19 @@ class PopularFoodPage extends StatelessWidget {
                         GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => HomeScreen()));
+                                  builder: (context) => const HomeScreen()));
                             },
                             child: AppIcon(
-                              icon: Icons.arrow_back,
+                              icon: Icons.home,
                               replaceColr: false,
                             )),
-                        GestureDetector(onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const CartPage(displayArrow: false,)));
-                        },
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const CartPage(
+                                      displayArrow: true,
+                                    )));
+                          },
                           child: GetBuilder<PopularProDuctController>(
                               builder: (controller) {
                             return Stack(
@@ -68,14 +71,20 @@ class PopularFoodPage extends StatelessWidget {
                                   replaceColr: false,
                                 ),
                                 // số lượng trong giỏ hàng lớn hơn 1
-                                Get.find<PopularProDuctController>().totalItems >=1
-                                    ? Stack(alignment: Alignment.center,
-                                      children:[AppIcon(
-                                          icon: Icons.circle,
-                                          replaceColr: true,size: 18,
-                                        ),
-                                        Text('${controller.totalItems}')],
-                                    )
+                                Get.find<PopularProDuctController>()
+                                            .totalItems >=
+                                        1
+                                    ? Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          AppIcon(
+                                            icon: Icons.circle,
+                                            replaceColr: true,
+                                            size: 18,
+                                          ),
+                                          Text('${controller.totalItems}')
+                                        ],
+                                      )
                                     : Container(),
                               ],
                             );
@@ -105,26 +114,23 @@ class PopularFoodPage extends StatelessWidget {
                           children: [
                             Wrap(
                               children: List.generate(
-                                  5,
+                                  popularProduct.stars!,
                                   (index) => Icon(
                                         Icons.star,
                                         color: Appcolor.mainColor,
                                         size: 17,
                                       )),
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Text("4.5", style: AppStyle.headlineStyle4),
-                            const SizedBox(
-                              width: 8,
-                            ),
+                            SizedBox(width: Dimension.width10),
+                            Text("${popularProduct.stars}",
+                                style: AppStyle.headlineStyle4),
+                            SizedBox(width: Dimension.width10),
                             Text("1000 comments",
                                 style: AppStyle.headlineStyle4)
                           ],
                         ),
-                        const SizedBox(
-                          height: 15,
+                         SizedBox(
+                          height: Dimension.height10,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -209,7 +215,8 @@ class PopularFoodPage extends StatelessWidget {
                     onTap: () {
                       popularIntansce.addItem(
                           popularProduct); //có dạng object của ProductModel
-                      popularIntansce.initProduct(popularProduct, Get.find<CartController>());//test
+                      popularIntansce.initProduct(
+                          popularProduct, Get.find<CartController>()); //chuyển
                     },
                     child: Container(
                         padding: const EdgeInsets.all(12),
@@ -217,7 +224,7 @@ class PopularFoodPage extends StatelessWidget {
                             color: Appcolor.mainColor,
                             borderRadius: BorderRadius.circular(15)),
                         child: Text(
-                          "\$${popularProduct.price} to Cart ",
+                          "\$${popularIntansce.valueofItem(popularProduct)} to Cart ",
                           style: AppStyle.headlineStyle2
                               .copyWith(color: Colors.white),
                         )),

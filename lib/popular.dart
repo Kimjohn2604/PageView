@@ -14,7 +14,12 @@ var popular = {
       "location": "Canada, British Columbia",
       "created_at": "2021-11-17 10:09:08",
       "updated_at": "2022-05-16 11:48:53",
-      "type_id": 2
+      "type_id": 2,
+      "comments": 456,
+      "foodState" :"Normal",
+      "destination": 0.25,
+      "timeWaiting": "15 min",
+      "subTitle":""
     },
     {
       "id": 2,
@@ -27,7 +32,12 @@ var popular = {
       "location": "Icefields, Alberta",
       "created_at": "2021-11-17 10:10:43",
       "updated_at": "2022-05-16 11:49:07",
-      "type_id": 2
+      "type_id": 2,
+      "comments": 456,
+      "foodState" :"Normal",
+      "destination": 0.25,
+      "timeWaiting": "15 min",
+      "subTitle":""
     },
     {
       "id": 6,
@@ -40,7 +50,12 @@ var popular = {
       "location": "china",
       "created_at": "2021-12-23 15:03:24",
       "updated_at": "2022-01-21 10:28:04",
-      "type_id": 2
+      "type_id": 2,
+      "comments": 456,
+      "foodState" :"Normal",
+      "destination": 0.25,
+      "timeWaiting": "15 min",
+      "subTitle":""
     },
     {
       "id": 7,
@@ -53,7 +68,12 @@ var popular = {
       "location": "Cuba",
       "created_at": "2021-12-23 15:04:49",
       "updated_at": "2022-01-01 08:56:45",
-      "type_id": 2
+      "type_id": 2,
+      "comments": 456,
+      "foodState" :"Normal",
+      "destination": 0.25,
+      "timeWaiting": "15 min",
+      "subTitle":""
     },
     {
       "id": 10,
@@ -66,7 +86,11 @@ var popular = {
       "location": "china",
       "created_at": "2021-12-27 06:29:47",
       "updated_at": "2022-01-01 08:56:33",
-      "type_id": 2
+      "type_id": 2,
+      "comments": 456,
+      "foodState" :"Normal",
+      "destination": 0.25,
+      "timeWaiting": "15 min",
     },
     {
       "id": 11,
@@ -79,7 +103,12 @@ var popular = {
       "location": "china",
       "created_at": "2021-12-27 06:35:34",
       "updated_at": "2022-01-01 08:56:22",
-      "type_id": 2
+      "type_id": 2,
+      "comments": 456,
+      "foodState" :"Normal",
+      "destination": 0.25,
+      "timeWaiting": "15 min",
+      "subTitle":""
     }
   ]
 };

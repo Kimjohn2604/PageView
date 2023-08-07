@@ -10,9 +10,10 @@ class DisplayScreen extends StatefulWidget {
   State<DisplayScreen> createState() => _DisplayScreenState();
 }
 
-class _DisplayScreenState extends State<DisplayScreen> {
+class _DisplayScreenState extends State<DisplayScreen> with AutomaticKeepAliveClientMixin<DisplayScreen>{
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -49,4 +50,7 @@ class _DisplayScreenState extends State<DisplayScreen> {
       ),
     );
   }
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

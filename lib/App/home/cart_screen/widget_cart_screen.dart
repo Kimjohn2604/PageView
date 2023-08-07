@@ -12,6 +12,7 @@ import '../../component/dimension.dart';
 import '../../component/styles.dart';
 
 Widget ColumnofCart(BuildContext context) {
+  
   return GetBuilder<CartController>(builder: (controller) {
     return ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
@@ -30,7 +31,6 @@ Widget ColumnofCart(BuildContext context) {
                     int popularIndex = Get.find<PopularProDuctController>()
                         .popularProductList
                         .indexOf(controller.getItems[index].product);
-                      print(controller.getItems[index].product!.id.toString());
                     if (popularIndex >= 0) {
                       Navigator.push(
                           context,
@@ -62,6 +62,7 @@ Widget ColumnofCart(BuildContext context) {
                         image: DecorationImage(
                             fit: BoxFit.cover,
                             /* image: AssetImage("assets/image/banhbeo.jpg"), */
+                            // ignore: prefer_interpolation_to_compose_strings
                             image: NetworkImage(AppConstants.BASE_URL +
                                 "/uploads/" +
                                 '${controller.getItems[index].img}'))),
@@ -94,14 +95,14 @@ Widget ColumnofCart(BuildContext context) {
                               .copyWith(color: Appcolor.black),
                         ),
                         Text(
-                          "subTitle",
+                          "${controller.getItems[index].time}",
                           style: AppStyle.headlineStyle4,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '\$${controller.getItems[index].price}',
+                              '\$${controller.getItems[index].price}/Items',
                               style: AppStyle.headlineStyle3
                                   .copyWith(color: Appcolor.iconColor2),
                             ),

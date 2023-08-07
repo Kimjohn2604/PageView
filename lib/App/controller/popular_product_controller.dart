@@ -46,6 +46,11 @@ class PopularProDuctController extends GetxController {
     }
     update();
   }
+  int valueofItem(ProductModel product){
+    var total=0;
+    total=tong*product.price!;
+     return total;// tính toán số tiền
+  }
 
   void initProduct(ProductModel product, CartController cart) {
     quantity = 0;
@@ -83,5 +88,8 @@ class PopularProDuctController extends GetxController {
 
   List<CartModel> get getItems {
     return _cart.getItems;
+  }
+  int get totalItemsInCart{
+    return _cart.totalItemsInCart;
   }
 }

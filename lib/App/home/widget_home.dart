@@ -209,7 +209,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   children: [
                     Wrap(
                       children: List.generate(
-                          5,
+                          popularProduct.stars!,
                           (index) => Icon(
                                 Icons.star,
                                 color: Appcolor.mainColor,
@@ -219,7 +219,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                     const SizedBox(
                       width: 8,
                     ),
-                    Text("4.5", style: AppStyle.headlineStyle4),
+                    Text(popularProduct.stars!.toString(), style: AppStyle.headlineStyle4),
                     const SizedBox(
                       width: 8,
                     ),
@@ -278,9 +278,6 @@ class IconandTextWidget extends StatelessWidget {
           icon,
           color: iconColor,
         ),
-        /* const SizedBox(
-          width: 1,
-        ), */
         Text(
           text,
           style: TextStyle(color: textcolor),
@@ -291,19 +288,11 @@ class IconandTextWidget extends StatelessWidget {
 }
 
 Widget ColumnofPopular(
-BuildContext context, ProductModel recommendProduct,{required int id}
-  /*  {required String title,
-    required String subTitle,
-    required String textIcon1,
-    required String textIcon2,
-    required String textIcon3,
-    required String path
-    } */
-) {
+BuildContext context, ProductModel recommendProduct,{required int id}) {
   return GestureDetector(
     onTap: () {
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) =>  RecommendedFoodPage(id: id,)));
+          MaterialPageRoute(builder: (context) =>  RecommendedFoodPage(id: id)));
     },
     child: Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
@@ -323,9 +312,7 @@ BuildContext context, ProductModel recommendProduct,{required int id}
                 image: DecorationImage(
                     fit: BoxFit.cover,
                     /* image: AssetImage("assets/image/$path"), fit: BoxFit.cover */
-                    image: NetworkImage(AppConstants.BASE_URL +
-                        "/uploads/" +
-                        recommendProduct.img!))),
+                    image: NetworkImage("${AppConstants.BASE_URL}/uploads/${recommendProduct.img!}"))),
             width: Dimension.screenWidth * 0.3,
             height: Dimension.pageViewTextContainer,
           ),

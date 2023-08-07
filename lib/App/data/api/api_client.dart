@@ -15,7 +15,8 @@ class ApiClient extends GetConnect implements GetxService {
     token = AppConstants.TOKEN;
     _mainHeaders = {
       'Content-type':
-          'application/json; charset=UTR-8', //get request(khi gửi dữ liệu đến server thì nó biết nằm trong mainheader) và mã hóa
+          'application/json; charset=UTR-8', 
+          //get request(khi gửi dữ liệu đến server thì nó biết nằm trong mainheader) và mã hóa
       'Authorization':
           'Bearer $token' //khi gửi nhiều yêu cầu đến server thì cần token
     };

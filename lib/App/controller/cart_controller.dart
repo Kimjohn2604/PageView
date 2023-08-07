@@ -2,7 +2,7 @@ import 'package:app/App/data/repository/cart_repo.dart';
 import 'package:app/App/models/cart_model.dart';
 import 'package:app/App/models/product_model.dart';
 import 'package:get/get.dart';
-
+import 'package:intl/intl.dart';
 class CartController extends GetxController {
   final CartRepo cartRepo;
   CartController({required this.cartRepo});
@@ -11,41 +11,47 @@ class CartController extends GetxController {
   void addItem(ProductModel product, int quantity) {
     /* print("${product.id}""${quantity}"  ); */
     //nếu các key trong items đã có thì nó update, còn chưa có thì putifabsent
+    DateTime now = DateTime.now();
+      String formattedDate = DateFormat('yyyy-MM-dd – kk:mm:a').format(now);
     if (items.containsKey(product.id)) {
-      var totalQuantity=0;
+      var totalQuantity = 0;
       items.update(product.id!, (value) {
-        totalQuantity=value.quantity!+quantity;
+        totalQuantity = value.quantity! + quantity;
         return CartModel(
             id: value.id,
             name: value.name,
             price: value.price,
             img: value.img,
-            time: DateTime.now().toString(),
+            time: formattedDate,
             isExist: true,
-            quantity: value.quantity! +
-                quantity, //value.quantity là số lượng item đã có trong giỏ hàng
+            quantity:
+                totalQuantity, //value.quantity là số lượng item đã có trong giỏ hàng
             product: product);
       });
-      if (totalQuantity<=0) {
-      items.remove(product.id);
+      if (totalQuantity <= 0) {
+        items.remove(product.id);
+      }
     }
+
+    if (quantity > 0) {
+      items.putIfAbsent(product.id!, () {
+        return CartModel(
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            img: product.img,
+            time: formattedDate,
+            isExist: true,
+            quantity: quantity,
+            product: product);
+      });
     }
-    
-    if(quantity>0){items.putIfAbsent(product.id!, () {
-      return CartModel(
-          id: product.id,
-          name: product.name,
-          price: product.price,
-          img: product.img,
-          time: DateTime.now().toString(),
-          isExist: true,
-          quantity: quantity,
-          product: product);
-    });}
-    
+
     //Nếu key không chứa trong Map sẽ được thêm mới,
     //nếu key đã tồn tại thì value sẽ được update thành value mới được truyền vào.
     update();
+    cartRepo.addToCartList(getItems);
+    // thêm list Getitems(là các item khi nhấn vào nút add) vào cartRepo
   }
 
   bool isExistInCart(ProductModel product) {
@@ -81,5 +87,13 @@ class CartController extends GetxController {
     return items.entries.map((e) {
       return e.value;
     }).toList(); //trả về các item đã add trong map dưới dạng list
+  }
+
+  int get totalItemsInCart {
+    var total = 0;
+    items.forEach((key, value) {
+      total += value.quantity! * value.price!;
+    });
+    return total; // tính toán số tiền
   }
 }
